@@ -1,0 +1,29 @@
+<ul id='listings'>
+    <% @listings.each do |listing| %>
+    <li>
+    	<div class='row well'>
+    		<div class='span2'>
+    			<%= link_to image_tag(listing.image_url, :"data-src" => '/assets/holder.js?100x100', class: 'thumbnail img-rounded', style: 'width: 180px; height: 150px; margin: 10px'), [:listings,:rentals,listing] %>
+    		</div>
+    		<div class='span6'>
+        	<h4><%= link_to listing.title.truncate(40), [:listings,:rentals,listing], target: '_blank' %></h4>
+        	<span class='bigprice'><%= number_to_currency listing.price %></span>
+            <br />
+            Posted By: <%= listing.user ? listing.user.name : 'Zuminati' %>
+            <br />
+            <%= listing.full_address %>
+            <br />
+            Bedrooms: <%= listing.bedrooms.to_i %>
+            <br />
+            SQRFT: <%= listing.sqrft %>
+            <br />
+            Phone: <%= number_to_phone listing.phone %>
+            <br />
+            <%= link_to 'View Original', listing.url, target: '_blank', class: 'btn btn-small' %>
+        </div>
+       </div>
+    </li>
+    <% end %>
+</ul>
+
+<%= will_paginate @listings %>

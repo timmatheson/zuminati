@@ -1,0 +1,7 @@
+<% content_for :sidebar do %>
+<h1>Rentals</h1>
+<p>Browse over <%= pluralize @listing_count, 'Listing' %> in Rentals.</p>
+<%= render 'listings/shared/sidebar' %>
+<% end %>
+
+<%= render 'listings/shared/index' %>

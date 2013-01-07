@@ -1,0 +1,25 @@
+<div>
+	<label for='price'><%= field.titleize %>:</label><span id='<%= field %>_label'></span>
+</div>
+<br />
+<div id='<%= field %>_slider'></div>
+<input type='hidden' name='<%= field %>' id='<%= field %>' value="<%= params[field.to_sym] %>" />
+<% content_for :head do %>
+	<script>
+		$(function() {
+	        $( "#<%= field %>_slider" ).slider({
+	        	min: <%= min %>,
+	        	max: <%= max %>,
+	        	range: <%= range %>,
+	        	values: <%= values %>,
+	        	slide: function( event, ui ) {
+	        		label = "<%= price ? '$' : '' %>";
+	          	$( "#<%= field %>_label" ).html( label + ui.values[0] + " - " + label + ui.values[1] );
+	          	$('input#<%= field %>').val(ui.values[0] + "-" + ui.values[1]);
+
+	          }
+	        })
+	        $( "#<%= field %>_label" ).html("<%= min %> - <%= max %>");
+	    });
+	 </script>
+<% end %>

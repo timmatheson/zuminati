@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+<div class='row well'>
+  <div class='span10'>
+    <h2><%= listing.title %></h2>
+  </div>
+  <div class='span2'>
+    <%= image_tag(listing.image_url, class: 'thumbnail', alt: listing.title, title: listing.title) %>
+
+    <%= link_to 'View Original Listing', listing.url, target: '_blank', class: 'btn btn-mini' %>
+
+    <div class='well'>
+      <span class='price'><%= number_to_currency listing.price %></span>
+      
+      <p>
+       <%= listing.address %>
+       <%= listing.city %>, <%= listing.state %>
+       <%= listing.zipcode %> <%= listing.country %>
+      </p>
+
+      <p>
+        <b>Phone:</b>
+        <%= listing.phone %>
+      </p>
+
+      <p>
+        <b>Email:</b>
+        <%= listing.email %>
+      </p>
+
+
+    </div>
+  </div>
+  <div class='span6'>
+    <p>
+      <%= listing.description.html_safe %>
+    </p>
+
+    <%= link_to 'Edit', edit_listings_rentals_listing_path(listing) if current_user && current_user.listings.include?(listing) %>
+  </div>
+  <div class='span6 well row'>
+    <h4>Similar Listings</h4>
+    
+    <% @search.results[0..4].each do |list| %>
+      <div class='span1'><%= link_to image_tag(list.image_url, style: 'width: 60px; height: 60px;', class: 'thumbnail', alt: list.title, title: list.title), list %><br />
+        <%= link_to list.title.truncate(20), list %><br /> <%= number_to_currency list.price %></div>
+    <% end if @search %>
+    
+  </div>
+</div>
+
+<div id="preview-modal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3><%= listing.title.truncate(30) %></h3>
+    </div>
+    <div class="modal-body">
+        <%= image_tag listing.image_url %>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:$('#preview-modal').modal('hide');" class="btn">Close</a>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('#preview-modal').modal('hide');
+    $('.thumbnail').click(function(){
+      $('#preview-modal').modal('show');
+    });
+  });
+</script>

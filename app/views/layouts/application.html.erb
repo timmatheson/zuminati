@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Zuminati - Online Classifieds Simplified" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Zuminati - Online Classifieds Simplified" %>">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css" type="text/css" media="all" />
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <header class="navbar navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container">
+          <%= render 'layouts/navigation' %>
+        </div>
+      </nav>
+    </header>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <aside class="span2">
+              <%= yield(:sidebar) %>
+            </aside>
+            <div class='span1'></div>
+            <div class="span9">
+              <%= render 'layouts/messages' %>
+              <%= yield %>
+            </div>
+          </div>
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+    <script>
+    $(document).ready(function(){
+      $('.pagination a').addClass('btn');
+      $('.pagination em.current').addClass('btn btn-primary');
+    });
+    </script>
+  </body>
+</html>
